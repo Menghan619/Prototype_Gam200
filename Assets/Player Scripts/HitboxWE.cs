@@ -112,7 +112,7 @@ public class HitboxWE : MonoBehaviour
         if (layerName == "EnemyW")
         {
             Debug.Log(other.gameObject.name + "Got HIT");
-            other.gameObject.GetComponent<Enemy>().Damaged();
+            
         }
         else
         {

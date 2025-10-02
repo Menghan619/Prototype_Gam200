@@ -31,6 +31,8 @@ public class Abilities : MonoBehaviour
     private Rigidbody2D rb;
     private float originalGravity; // if you use gravity on the rb (often 0 in 2D top-down)
 
+    AudioManager audioManager;
+
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ public class Abilities : MonoBehaviour
             hitboxWW = AbilityWW.GetComponent<Collider2D>(); // or Collider2D
         if (AbilityWE != null)
             hitboxWE = AbilityWE.GetComponent<Collider2D>(); // or Collider2D
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
     private void Start()
     {
@@ -60,7 +63,8 @@ public class Abilities : MonoBehaviour
         switch (AbilityUsed)
         {
             case "QQ":
-                SlashAnimes.SetTrigger("QQ");
+                SlashAnimes.SetTrigger("WaterSlash");
+                audioManager.PlaySFX(audioManager.WaterSlash);
                 StartCoroutine(OpenHitboxWindow("QQ"));
 
                 break;
@@ -68,8 +72,9 @@ public class Abilities : MonoBehaviour
                 StartCoroutine(DashThenSlash());
                 break;
             case "WE":
-                SlashAnimes.SetTrigger("WE");
+                
                 CharSlashAnimes.SetTrigger("Aoe");
+                audioManager.PlaySFX(audioManager.ComboSlash);
                 StartCoroutine(OpenHitboxWindow("WE"));
                 break;
 
@@ -233,7 +238,7 @@ public class Abilities : MonoBehaviour
             savedVel = rb.linearVelocity;
             rb.gravityScale = 0f; // top-down usually 0 anyway
         }
-
+        audioManager.PlaySFX(audioManager.DashSFX);
         // Dash move loop
         if (rb != null)
         {
@@ -245,6 +250,7 @@ public class Abilities : MonoBehaviour
             }
             rb.linearVelocity = Vector2.zero;
             rb.gravityScale = originalGravity;
+            
         }
         else
         {
@@ -256,7 +262,8 @@ public class Abilities : MonoBehaviour
         }
 
         // Now unleash the slash
-        SlashAnimes.SetTrigger("QQ");
+        SlashAnimes.SetTrigger("WindSlash");
+        audioManager.PlaySFX(audioManager.WindSlash);
         yield return StartCoroutine(OpenHitboxWindow("WW"));
 
         // 3) Re-enable movement but keep destination cleared so we STAY at dash end

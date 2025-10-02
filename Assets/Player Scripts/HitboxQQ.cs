@@ -89,6 +89,13 @@ public class Hitbox : MonoBehaviour
 
     readonly HashSet<int> hitThisWindow = new HashSet<int>();
     bool windowOpen;
+    [SerializeField] GameObject PlayerObject;
+    Transform Ptransform;
+
+    private void Start()
+    {
+        Ptransform = PlayerObject.transform;
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         
@@ -108,7 +115,7 @@ public class Hitbox : MonoBehaviour
         
         
             Debug.Log(other.gameObject.name + "Got HIT");
-            other.gameObject.GetComponent<Enemy>().Damaged();
+            other.gameObject.GetComponent<Enemy>().Damaged(layerName, Ptransform);
         
        
          

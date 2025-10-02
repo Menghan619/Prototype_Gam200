@@ -19,6 +19,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject ElementIndicator;
     SpriteRenderer elementInd;
     // Update is called once per frame
+    [SerializeField] Sprite WindIcon;
+    [SerializeField] Sprite WaterIcon;
+    [SerializeField] Sprite FireIcon;
 
     [Header("Facing")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -49,7 +52,15 @@ public class PlayerAttack : MonoBehaviour
             {
 
                 case 0:
+                    
                     KeyInputs.Append(Input.inputString);
+                    if (KeyInputs.ToString().ToUpper() == "Q")
+                    {
+                        elementInd.sprite = WaterIcon;
+                    }else if (KeyInputs.ToString().ToUpper() == "W")
+                    {
+                        elementInd.sprite = WindIcon;
+                    }
                     break;
 
                 case 1:
@@ -58,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
                     Debug.Log(KeyInputs.ToString().ToUpper());
                     if (InputFinal == "QQ")
                     {
-                        elementInd.color = Color.red;
+                        elementInd.sprite = WaterIcon;
                         if (Time.time >= nextAttackTime) {
                             FaceTowardsMouse();
                             AbilitiesScript.AttackAbility("QQ");
@@ -72,7 +83,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else if (InputFinal == "WW")
                     {
-                        elementInd.color = Color.green;
+                        elementInd.sprite = WindIcon;
                         if (Time.time >= nextAttackTime)
                         {
                             FaceTowardsMouse();
@@ -85,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else if (InputFinal == "QW" || InputFinal == "WQ")
                     {
-                        elementInd.color = new Color(1.0f, 0.647f, 0.0f, 1.0f); ;
+                        elementInd.sprite = FireIcon;
                         //CharSlashAnime.SetTrigger("Aoe");
                         if (Time.time >= nextAttackTime)
                         {
