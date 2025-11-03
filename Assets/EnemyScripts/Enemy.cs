@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 public class Enemy : MonoBehaviour
 {
+    [Tooltip("What element is current enemy")]
+    [SerializeField] private string EnemyTypes;
+
     [Tooltip("Material to switch to during the flash.")]
     [SerializeField] private Material flashMaterial;
 
@@ -23,13 +26,14 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D EnemyRb;
     [SerializeField] private float Knockbackforce = 0.05f;
-    [SerializeField] private float knockbackLockout = 0.20f;
+    //[SerializeField] private float knockbackLockout = 0.20f;
+    [SerializeField] private float knockbackLockout = 0.30f; // was 0.20f
 
     [Header("Return/Home Settings")]
                  // not used directly anymore, kept for reference
     [SerializeField] private float homeAccel = 12f;               // how hard to pull back to start
     [SerializeField] private float homeStopRadius = 0.05f;        // snap/stop distance
-    [SerializeField] private float maxSpeed = 6f;
+    //[SerializeField] private float maxSpeed = 6f;
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 2f;
@@ -37,11 +41,21 @@ public class Enemy : MonoBehaviour
     [Header("HitStop Setting")]
     [SerializeField] private float HitStopDuration = 5f;
 
+    [Header("HP (moved out of Enemy logic)")]
+    [SerializeField] private Health health;   // assign in Inspector or via GetComponent in Awake
+    [Header("Element")]
+    public Element defenseElement = Element.Neutral; // optional mirror for convenience
+
+
     // NEW: track spawn position
     private Vector2 startPosition;
 
     private float knockbackUntilTime = -1f;
 
+    [SerializeField] private float maxSpeed = 6f;          // normal cap
+    [SerializeField] private float knockbackMaxSpeed = 20f; // higher cap just during knockback
+    public bool InKnockback => Time.time < knockbackUntilTime;
+   
 
 
 
@@ -68,10 +82,20 @@ public class Enemy : MonoBehaviour
         EnemyRb.gravityScale = 0f;
 
         // Give it some drag so impulses die out naturally
-        EnemyRb.linearDamping = 4f;          // tune to taste (higher = stops quicker)
+        //EnemyRb.linearDamping = 4f;          // tune to taste (higher = stops quicker)
+        EnemyRb.linearDamping = 1.0f;   // was 4f; try 0.5–1.5 for nicer shove persistence
         EnemyRb.angularDamping = 0.05f;
-    }
 
+        //EnemyRb.drag = 4f;            // instead of linearDamping
+        //EnemyRb.angularDrag = 0.05f;
+    }
+    private void Awake()
+    {
+        // Keep your current Awake content
+        if (EnemyRb == null) EnemyRb = GetComponent<Rigidbody2D>();
+        if (health == null) health = GetComponent<Health>();
+        if (health != null) health.defenseElement = defenseElement;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -80,58 +104,160 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        ApplyReturnToStartPhysics();
+        //ApplyReturnToStartPhysics();
         // Optional: hard cap speed to avoid silly values
-        EnemyRb.linearVelocity = Vector2.ClampMagnitude(EnemyRb.linearVelocity, maxSpeed);
+        float cap = InKnockback ? knockbackMaxSpeed : maxSpeed;
+        EnemyRb.linearVelocity = Vector2.ClampMagnitude(EnemyRb.linearVelocity, cap);
+        //EnemyRb.linearVelocity = Vector2.ClampMagnitude(EnemyRb.linearVelocity, maxSpeed);
     }
 
-    public void Damaged(string EnemyType, Transform playertransform)
+    //public void Damaged(string AbilityElement, Transform playertransform)
+    //{
+    //    Debug.Log("PASSED IN : "+AbilityElement);
+
+        //if (EnemyTypes == "Water")
+        //{
+        //    EnemyAnimator.SetTrigger("WaterHit");
+        //}else if(EnemyTypes == "Fire")
+        //{
+        //    EnemyAnimator.SetTrigger("FireHit");
+        //}
+    //    audioManager.PlaySFX(audioManager.HitSFX);
+    //    audioManager.PlaySFX(audioManager.EnemyScreamSFX);
+    //    Knockback(playertransform);
+    //    Timestop();
+    //    Flash();
+
+
+
+    //    hp--;
+
+
+    //}
+
+    // ======= NEW: preferred overload =======
+    public void Damaged(DamagePacket packet)
     {
-        Debug.Log("PASSED IN : "+EnemyType);
-        if (EnemyType == "EnemyF")
+        if (health == null)
         {
-            EnemyAnimator.SetTrigger("WaterHit");
-        }else if(EnemyType == "EnemyW")
-        {
-            EnemyAnimator.SetTrigger("FireHit");
+            // Fallback: just do your old behavior if Health missing
+            // (but you should add Health to all enemies)
+            ApplyKnockback(packet.knockbackDir, packet.knockbackForce * 0.5f);
+            return;
         }
-        audioManager.PlaySFX(audioManager.HitSFX);
-        audioManager.PlaySFX(audioManager.EnemyScreamSFX);
-        Knockback(playertransform);
-        Flash();
-        Timestop();
-        
-        
-        hp--;
+
+        bool didDamage = health.ApplyDamage(packet, out float finalDamage);
+
+        if (didDamage)
+        {
+            // >>> Your existing reactions for a "real hit":
+            // - Knockback (use packet.knockbackDir/Force)
+            // - Optional flash (COMMENT OUT if you want no flash globally for now)
+            // - Hitstop
+            if (defenseElement == Element.Water)
+            {
+                EnemyAnimator.SetTrigger("WaterHit");
+            }
+            else if (defenseElement == Element.Fire)
+            {
+                EnemyAnimator.SetTrigger("FireHit");
+            }
+            ApplyKnockback(packet.knockbackDir, packet.knockbackForce);
+            Flash();
+            audioManager.PlaySFX(audioManager.HitSFX);
+            audioManager.PlaySFX(audioManager.EnemyScreamSFX);
+            
+            // HITFLASH: comment if you want to disable globally for now
+            // StartCoroutine(DoFlash());  // <-- your existing flash routine
+
+            //DoHitstop(); // your existing hitstop routine
+        }
+        else
+        {
+            // >>> IMMUNE FEEL: small knockback, no flash, no hitstop
+            ApplyKnockback(packet.knockbackDir, packet.knockbackForce * 0.4f);
+        }
     }
-    public void Knockback(Transform playertransform)
+
+    // ======= BACK-COMPAT: old signature wrapper =======
+    // If other code still calls Enemy.Damaged(string elementName, Transform player)
+    public void OldDamaged(string incomingElementName, Transform playerTransform)
     {
-        ////Vector2 direction = (transform.position - playertransform.position).normalized;
-        ////EnemyRb.linearVelocity = direction * Knockbackforce;
-        //Debug.Log("ENEMY KNOCKED BACK");
+        // Map your old string to our enum (fallback to Neutral if unknown)
+        Element atkElem = incomingElementName switch
+        {
+            "Fire" => Element.Fire,
+            "Water" => Element.Water,
+            "Wind" => Element.Wind,
+            _ => Element.Neutral
+        };
 
-        //Vector2 dir = ((Vector2)transform.position - (Vector2)playertransform.position).normalized;
-        //if (dir == Vector2.zero) dir = Vector2.right;
+        Vector2 dir = (transform.position - playerTransform.position).normalized;
+        float force = 4.0f; // use your existing constant/serialized value if you have one
 
-        //// Reset velocity first so knockback isn�ft stacked
+        // Base damage: for old path, use 1 or your Hitbox.damage if available
+        float baseDmg = 1f;
+
+        var pkt = new DamagePacket(baseDmg, atkElem, playerTransform, dir, force);
+        Damaged(pkt);
+    }
+
+    //public void Knockback(Transform playertransform)
+    //{
+      
+    //    Debug.Log("ENEMY KNOCKED BACK");
+
+    //    Vector2 dir = ((Vector2)transform.position - (Vector2)playertransform.position).normalized;
+    //    if (dir == Vector2.zero) dir = Vector2.right;
+
+    //    // Clear existing velocity to avoid stacking
+    //    EnemyRb.linearVelocity = Vector2.zero;
+
+    //    // Instant shove
+    //    EnemyRb.AddForce(dir * Knockbackforce, ForceMode2D.Impulse);
+
+    //    // Put enemy in a brief "don't home back yet" window
+    //    knockbackUntilTime = Time.time + knockbackLockout;
+    //}
+    private void ApplyKnockback(Vector2 dir, float force)
+    {
+        //// your current knockback code
+        //if (EnemyRb == null) return;
+
+        //// Safety: normalize and handle degenerate vectors
+        //if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+        //dir = dir.normalized;
+
+        //// Clear current motion so impulses feel crisp (prevents “ice skating”)
+        //// If you're on an older Unity version, use: EnemyRb.velocity instead of linearVelocity
         //EnemyRb.linearVelocity = Vector2.zero;
 
-        //// Apply knockback impulse
-        //float knockbackImpulse = 5f; // tune this in Inspector
-        //EnemyRb.AddForce(dir * knockbackImpulse, ForceMode2D.Impulse);
-        Debug.Log("ENEMY KNOCKED BACK");
+        //// Instant shove away from the source
+        //EnemyRb.AddForce(dir * Mathf.Max(0f, force), ForceMode2D.Impulse);
 
-        Vector2 dir = ((Vector2)transform.position - (Vector2)playertransform.position).normalized;
-        if (dir == Vector2.zero) dir = Vector2.right;
+        //// Brief lockout so homing/other forces don’t immediately cancel the knockback
+        //knockbackUntilTime = Time.time + knockbackLockout;
 
-        // Clear existing velocity to avoid stacking
-        EnemyRb.linearVelocity = Vector2.zero;
+        //// Optional: keep speeds sane in case force is very high
+        //EnemyRb.linearVelocity = Vector2.ClampMagnitude(EnemyRb.linearVelocity, maxSpeed);
 
-        // Instant shove
-        EnemyRb.AddForce(dir * Knockbackforce, ForceMode2D.Impulse);
+        if (EnemyRb == null) return;
+        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+        dir = dir.normalized;
 
-        // Put enemy in a brief "don't home back yet" window
+        EnemyRb.linearVelocity = Vector2.zero;                               // clear motion
+        EnemyRb.AddForce(dir * Mathf.Max(0f, force), ForceMode2D.Impulse);
+
         knockbackUntilTime = Time.time + knockbackLockout;
+
+        // Optional cap
+        //EnemyRb.linearVelocity = Vector2.ClampMagnitude(EnemyRb.linearVelocity, maxSpeed);
+    }
+
+    private void DoHitstop()
+    {
+        // your current timescale hitstop code (WaitStop coroutine etc.)
+        Timestop();
     }
     void Flash()
     {

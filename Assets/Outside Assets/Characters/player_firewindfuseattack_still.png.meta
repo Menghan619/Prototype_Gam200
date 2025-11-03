@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      player_firewindfuseattack_still_0: -5958338344057772093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
