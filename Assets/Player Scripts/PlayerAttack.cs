@@ -73,7 +73,8 @@ public class PlayerAttack : MonoBehaviour
                         if (Time.time >= nextAttackTime) {
                             FaceTowardsMouse();
                             AbilitiesScript.AttackAbility("QQ");
-                            CharSlashAnime.SetTrigger("Attack");
+                            CharSlashAnime.SetTrigger("WaterAttack");
+
                             nextAttackTime = Time.time + 1f / attackRate;
                             KeyInputs.Clear();
                         }
@@ -88,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
                         {
                             FaceTowardsMouse();
                             AbilitiesScript.AttackAbility("WW");
-                            CharSlashAnime.SetTrigger("Attack");
+                            CharSlashAnime.SetTrigger("WindAttack");
                             nextAttackTime = Time.time + 1f / attackRate;
                             KeyInputs.Clear();
                         }

@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Facing")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -87,8 +89,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Anim triggers (purely cosmetic; physics happens in FixedUpdate)
-        if (isMoving) CharMoveAnim.SetTrigger("Moving");
-        else CharMoveAnim.SetTrigger("Idle");
+        //if (isMoving) CharMoveAnim.SetTrigger("Moving");
+        //else CharMoveAnim.SetTrigger("Idle");
+
+        // Drive animator with a bool, not triggers per-frame
+        CharMoveAnim.SetBool(IsMovingHash, isMoving);
     }
     void FixedUpdate()
     {
