@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      waterenemy_idle_still_0: -7733988553487500148
+      waterenemy_idle_still_1: -7367265844127470620
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

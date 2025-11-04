@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      prop_interior_lantern_0: 2134358818093315661
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

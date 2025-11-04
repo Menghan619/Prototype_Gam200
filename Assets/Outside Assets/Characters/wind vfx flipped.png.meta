@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wind vfx flipped_0: 3915361382922812078
+      wind vfx flipped_1: -8962641204516960719
+      wind vfx flipped_2: -8699959675520070524
+      wind vfx flipped_3: 6801207551760233630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

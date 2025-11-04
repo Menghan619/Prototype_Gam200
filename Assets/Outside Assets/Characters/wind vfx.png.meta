@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wind vfx_0: 3508618930239702340
+      wind vfx_1: 3615261979715217731
+      wind vfx_2: 2106026959960464125
+      wind vfx_3: -7639391203380815608
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
