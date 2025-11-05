@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Health))]
 public class WaterDemonDeathExplode : MonoBehaviour
@@ -25,6 +26,18 @@ public class WaterDemonDeathExplode : MonoBehaviour
     public LayerMask playerLayers;   // set this to your Player layer(s) in Inspector
     private readonly Collider2D[] _hits = new Collider2D[8]; // small buffer
 
+    [Header("Corpse Fade-Out")]
+    [Tooltip("If true, fade SpriteRenderers after the death animation, then destroy.")]
+    [SerializeField] private bool fadeOutOnDeath = true;
+    [SerializeField] private float fadeDuration = 0.6f;      // seconds
+    [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.Linear(0, 1, 1, 0);
+
+    [Header("Cleanup")]
+    [SerializeField] private bool destroyAfterDeath = true;
+
+    // cache of sprites to fade
+    private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+
     void Awake()
     {
         if (!health) health = GetComponent<Health>();
@@ -37,6 +50,8 @@ public class WaterDemonDeathExplode : MonoBehaviour
             var p = GameObject.FindGameObjectWithTag("Player");
             if (p) player = p.transform;
         }
+        // cache all sprites (root + children)
+        GetComponentsInChildren(true, sprites);
     }
 
     void OnEnable()
@@ -120,7 +135,7 @@ public class WaterDemonDeathExplode : MonoBehaviour
             }
         }
         // Destroy self cleanly
-        if (health != null) health.DestroyNow();
+        if (health != null) StartCoroutine(CoDeathSequence(1f));
         else Destroy(gameObject);
     }
 
@@ -128,5 +143,57 @@ public class WaterDemonDeathExplode : MonoBehaviour
     {
         Gizmos.color = new Color(0f, 0.5f, 1f, 0.25f);
         Gizmos.DrawWireSphere(transform.position, explodeRadius);
+    }
+
+    private IEnumerator CoDeathSequence(float deathAnimTime)
+    {
+        // wait for the animation time (game-time, not realtime, so it respects any animator speed)
+        yield return new WaitForSeconds(deathAnimTime);
+
+        if (fadeOutOnDeath && sprites.Count > 0 && fadeDuration > 0f)
+            yield return StartCoroutine(CoFadeSprites());
+
+        if (destroyAfterDeath)
+            Destroy(gameObject);
+    }
+
+    private IEnumerator CoFadeSprites()
+    {
+        // capture starting colors
+        var startColors = new Color[sprites.Count];
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            if (sprites[i]) startColors[i] = sprites[i].color;
+        }
+
+        float t = 0f;
+        while (t < fadeDuration)
+        {
+            t += Time.unscaledDeltaTime; // unscaled so fade isn't affected by hitstop/timeScale
+            float k = Mathf.Clamp01(t / fadeDuration);
+            float a = Mathf.Clamp01(fadeCurve.Evaluate(k)); // 1→0
+
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                var sr = sprites[i];
+                if (!sr) continue;
+                var c = startColors[i];
+                c.a = a;
+                sr.color = c;
+            }
+
+            yield return null;
+        }
+
+        // ensure fully invisible
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            if (sprites[i])
+            {
+                var c = sprites[i].color;
+                c.a = 0f;
+                sprites[i].color = c;
+            }
+        }
     }
 }

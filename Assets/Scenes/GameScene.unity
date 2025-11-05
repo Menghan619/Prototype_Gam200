@@ -2858,12 +2858,13 @@ GameObject:
   - component: {fileID: 502688543}
   - component: {fileID: 502688546}
   - component: {fileID: 502688547}
-  - component: {fileID: 502688548}
   - component: {fileID: 502688549}
+  - component: {fileID: 502688548}
   - component: {fileID: 502688550}
   - component: {fileID: 502688551}
   - component: {fileID: 502688552}
   - component: {fileID: 502688553}
+  - component: {fileID: 502688554}
   m_Layer: 8
   m_Name: Fire Enemy
   m_TagString: Untagged
@@ -3084,7 +3085,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 502688542}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0049df882dc8e0449080658d959f136, type: 3}
   m_Name: 
@@ -3171,6 +3172,22 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &502688554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502688542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22d510704811e84a963398d324f39e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaOrbPrefab: {fileID: 7966020083063901480, guid: 6a7214790b7523e47a15d2482d837c5c, type: 3}
+  minOrbs: 1
+  maxOrbs: 2
+  enemyDefenseElement: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5712,9 +5729,10 @@ GameObject:
   - component: {fileID: 1011331245}
   - component: {fileID: 1011331246}
   - component: {fileID: 1011331249}
+  - component: {fileID: 1011331250}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5849,6 +5867,7 @@ MonoBehaviour:
   WaterIcon: {fileID: 9111396066961748648, guid: 77fa8e39f7ffeca409fd70f6263b8709, type: 3}
   FireIcon: {fileID: 1990818416094883898, guid: 569842ae2132e4c4e8ddab6db5edccf1, type: 3}
   spriteRenderer: {fileID: 1011331241}
+  costs: {fileID: 11400000, guid: 73fd65aa82cb4e14ea4ba2f7f82f5358, type: 2}
   attackRate: 2
 --- !u!114 &1011331246
 MonoBehaviour:
@@ -5875,6 +5894,7 @@ MonoBehaviour:
   dashBlockers:
     serializedVersion: 2
     m_Bits: 0
+  costs: {fileID: 11400000, guid: 73fd65aa82cb4e14ea4ba2f7f82f5358, type: 2}
 --- !u!50 &1011331247
 Rigidbody2D:
   serializedVersion: 5
@@ -5965,6 +5985,22 @@ MonoBehaviour:
   hurtTrigger: Hurt
   movementScript: {fileID: 1011331243}
   movementLockProperty: IsInputLocked
+--- !u!114 &1011331250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011331240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8b0215dbea8314aab0a945e43715f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMana: 100
+  startMana: 100
+  regenPerSecond: 7
+  regenWhileCasting: 1
 --- !u!1 &1071273619 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5720515506664510873, guid: 9d55f8c67a271c24c820ebfc21a91785, type: 3}
@@ -11058,6 +11094,33 @@ MonoBehaviour:
   playerLayers:
     serializedVersion: 2
     m_Bits: 64
+  fadeOutOnDeath: 1
+  fadeDuration: 0.6
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  destroyAfterDeath: 1
 --- !u!1 &2092728489
 GameObject:
   m_ObjectHideFlags: 0

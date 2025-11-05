@@ -33,6 +33,9 @@ public class Abilities : MonoBehaviour
 
     AudioManager audioManager;
 
+    private PlayerMana mana;
+    [SerializeField] private AbilityCosts costs;
+
 
     private void Awake()
     {
@@ -43,6 +46,11 @@ public class Abilities : MonoBehaviour
         if (AbilityWE != null)
             hitboxWE = AbilityWE.GetComponent<Collider2D>(); // or Collider2D
         audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
+
+        // NEW:
+        if (!mana) mana = GetComponent<PlayerMana>();
+        if (!rb) rb = GetComponent<Rigidbody2D>();
+        originalGravity = rb ? rb.gravityScale : 0f;
     }
     private void Start()
     {
@@ -94,6 +102,10 @@ public class Abilities : MonoBehaviour
         switch (AbilityUsed)
         {
             case "QQ":
+
+                int cost = costs ? costs.WaterQ : 20;
+                if (mana && !mana.Spend(cost)) yield break;
+
                 if (movement != null)
                 {
                     movement.IsInputLocked = true; // ignore new clicks
@@ -144,6 +156,10 @@ public class Abilities : MonoBehaviour
 
 
             case "WE":
+
+                // PAY HERE (before locking movement / enabling hitbox)
+                cost = costs ? costs.SteamBurst_WE : 45;
+                if (mana && !mana.Spend(cost)) yield break;
 
                 if (movement != null)
                 {
@@ -207,6 +223,9 @@ public class Abilities : MonoBehaviour
 
     private IEnumerator DashThenSlash()
     {
+        int cost = costs ? costs.WindW : 20;
+        if (mana && !mana.Spend(cost)) yield break;
+
         if (movement != null)
         {
             movement.IsInputLocked = true; // ignore new clicks

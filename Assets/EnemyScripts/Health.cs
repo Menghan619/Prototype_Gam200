@@ -12,6 +12,10 @@ public class Health : MonoBehaviour
 
     public float CurrentHP { get; private set; }
 
+    public Element LastHitElement { get; private set; } = Element.Neutral;
+
+
+
     private void Awake() => CurrentHP = maxHP;
 
     /// <summary>
@@ -20,6 +24,7 @@ public class Health : MonoBehaviour
     /// </summary>
     public bool ApplyDamage(DamagePacket packet, out float finalDamage)
     {
+        LastHitElement = packet.attackElement;
         float mult = ElementChart.GetMultiplier(packet.attackElement, defenseElement);
         if (mult <= 0f) // immune
         {

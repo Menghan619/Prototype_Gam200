@@ -26,8 +26,20 @@ public class PlayerAttack : MonoBehaviour
     [Header("Facing")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [Header("Mana")]
+    [SerializeField] private AbilityCosts costs;
+    private PlayerMana mana;
+
     public float attackRate = 2f;
     float nextAttackTime = 0f;
+
+    void Awake() 
+    { 
+        
+        if (!mana) mana = GetComponent<PlayerMana>(); 
+    
+    
+    }
     private void Start()
     {
         
@@ -45,22 +57,28 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.W) )
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.W))
         {
-            
+
             switch (KeyInputs.Length)
             {
 
                 case 0:
-                    
+
+                    //KeyInputs.Append(Input.inputString);
+                    //if (KeyInputs.ToString().ToUpper() == "Q")
+                    //{
+                    //    elementInd.sprite = WaterIcon;
+                    //}
+                    //else if (KeyInputs.ToString().ToUpper() == "W")
+                    //{
+                    //    elementInd.sprite = WindIcon;
+                    //}
+                    //break;
                     KeyInputs.Append(Input.inputString);
-                    if (KeyInputs.ToString().ToUpper() == "Q")
-                    {
-                        elementInd.sprite = WaterIcon;
-                    }else if (KeyInputs.ToString().ToUpper() == "W")
-                    {
-                        elementInd.sprite = WindIcon;
-                    }
+                    // (Optional) only show element indicator once we confirm we can cast on the second key
+                    if (KeyInputs.ToString().ToUpper() == "Q") { elementInd.sprite = WaterIcon; }
+                    else if (KeyInputs.ToString().ToUpper() == "W") { elementInd.sprite = WindIcon; }
                     break;
 
                 case 1:
@@ -69,56 +87,86 @@ public class PlayerAttack : MonoBehaviour
                     Debug.Log(KeyInputs.ToString().ToUpper());
                     if (InputFinal == "QQ")
                     {
-                        elementInd.sprite = WaterIcon;
-                        if (Time.time >= nextAttackTime) {
-                            FaceTowardsMouse();
-                            AbilitiesScript.AttackAbility("QQ");
-                            CharSlashAnime.SetTrigger("WaterAttack");
+                        //elementInd.sprite = WaterIcon;
+                        //if (Time.time >= nextAttackTime)
+                        //{
+                        //    FaceTowardsMouse();
+                        //    AbilitiesScript.AttackAbility("QQ");
+                        //    CharSlashAnime.SetTrigger("WaterAttack");
 
+                        //    nextAttackTime = Time.time + 1f / attackRate;
+                        //    KeyInputs.Clear();
+                        //}
+                        int cost = costs ? costs.WaterQ : 20;
+                        if (Time.time >= nextAttackTime && RequireManaOrDeny(cost))
+                        {
+                            elementInd.sprite = WaterIcon;
+                            FaceTowardsMouse();
+                            AbilitiesScript.AttackAbility("QQ");         // spend happens inside Abilities
+                            CharSlashAnime.SetTrigger("WaterAttack");
                             nextAttackTime = Time.time + 1f / attackRate;
-                            KeyInputs.Clear();
                         }
-                        
-                        
-                        
+                        KeyInputs.Clear();
+
+
+
                     }
                     else if (InputFinal == "WW")
                     {
-                        elementInd.sprite = WindIcon;
-                        if (Time.time >= nextAttackTime)
+                        //elementInd.sprite = WindIcon;
+                        //if (Time.time >= nextAttackTime)
+                        //{
+                        //    FaceTowardsMouse();
+                        //    AbilitiesScript.AttackAbility("WW");
+                        //    CharSlashAnime.SetTrigger("WindAttack");
+                        //    nextAttackTime = Time.time + 1f / attackRate;
+                        //    KeyInputs.Clear();
+                        //}
+                        int cost = costs ? costs.WindW : 20;
+                        if (Time.time >= nextAttackTime && RequireManaOrDeny(cost))
                         {
+                            elementInd.sprite = WindIcon;
                             FaceTowardsMouse();
-                            AbilitiesScript.AttackAbility("WW");
+                            AbilitiesScript.AttackAbility("WW");         // spend happens inside Abilities
                             CharSlashAnime.SetTrigger("WindAttack");
                             nextAttackTime = Time.time + 1f / attackRate;
-                            KeyInputs.Clear();
                         }
-                       
+                        KeyInputs.Clear();
+
                     }
                     else if (InputFinal == "QW" || InputFinal == "WQ")
                     {
-                        elementInd.sprite = FireIcon;
-                        //CharSlashAnime.SetTrigger("Aoe");
-                        if (Time.time >= nextAttackTime)
+                        //elementInd.sprite = FireIcon;
+                        ////CharSlashAnime.SetTrigger("Aoe");
+                        //if (Time.time >= nextAttackTime)
+                        //{
+                        //    FaceTowardsMouse();
+                        //    AbilitiesScript.AttackAbility("WE");
+                        //    KeyInputs.Clear();
+                        //    nextAttackTime = Time.time + 1f / attackRate;
+                        //}
+                        int cost = costs ? costs.SteamBurst_WE : 45;
+                        if (Time.time >= nextAttackTime && RequireManaOrDeny(cost))
                         {
+                            elementInd.sprite = FireIcon;                // Steam Burst visual cue
                             FaceTowardsMouse();
-                            AbilitiesScript.AttackAbility("WE");
-                            KeyInputs.Clear();
+                            AbilitiesScript.AttackAbility("WE");         // spend happens inside Abilities
                             nextAttackTime = Time.time + 1f / attackRate;
                         }
+                        KeyInputs.Clear();
 
                     }
                     else
                     {
                         KeyInputs.Clear();
                     }
-                    
+
                     break;
 
-                     
+
 
             }
-            
+
         }
                 
 
@@ -163,7 +211,18 @@ public class PlayerAttack : MonoBehaviour
         spriteRenderer.flipX = (mouseWorld.x < transform.position.x);
         
     }
- }
+
+    bool RequireManaOrDeny(int cost)
+    {
+        if (!mana) return true; // if mana missing, allow (for safety)
+        if (mana.CanAfford(cost)) return true;
+
+        // TODO: feedback (flash UI, play deny SFX)
+        // e.g., ManaBarUI.Instance?.PulseDeny();
+        Debug.Log("Not enough mana for this ability.");
+        return false;
+    }
+}
 
 
 
