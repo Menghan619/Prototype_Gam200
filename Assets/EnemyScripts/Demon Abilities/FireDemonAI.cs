@@ -192,6 +192,7 @@ public class FireDemonAI : MonoBehaviour
     //
     void FixedUpdate()
     {
+
         if (!player) return;
 
         // Don’t fight physics knockback
@@ -206,15 +207,23 @@ public class FireDemonAI : MonoBehaviour
         {
             case Brain.Chase:
                 {
+                    float spdMul = 1f;
+                    var status = GetComponent<EnemyStatusController>();
+                    if (status) spdMul = status.CurrentSpeedMultiplier;
                     if (dist > preferRange * 1.1f)
                     {
-                        rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+                        //rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+                        // when moving closer:
+                        rb.MovePosition(rb.position + dir * (moveSpeed * spdMul) * Time.fixedDeltaTime);
+
                         facing?.SetMovementDir(dir);
                     }
                     else if (dist < preferRange * backoffFactor)
                     {
                         Vector2 away = -dir;
-                        rb.MovePosition(rb.position + away * (moveSpeed * 0.6f) * Time.fixedDeltaTime);
+                        //rb.MovePosition(rb.position + away * (moveSpeed * 0.6f) * Time.fixedDeltaTime);
+                        // when backing off:
+                        rb.MovePosition(rb.position + away * (moveSpeed * 0.6f * spdMul) * Time.fixedDeltaTime);
                         facing?.SetMovementDir(away);
                     }
                     // else: hold
@@ -247,15 +256,21 @@ public class FireDemonAI : MonoBehaviour
                         if (desired.sqrMagnitude < 0.0001f) desired = tangent;
                         hoverDir = desired.normalized;
                     }
-
+                    float spdMul = 1f;
+                    var status = GetComponent<EnemyStatusController>();
+                    if (status) spdMul = status.CurrentSpeedMultiplier;
                     // Move along hoverDir
-                    rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
+                    //rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
+                    rb.MovePosition(rb.position + hoverDir * (hoverSpeed * spdMul) * Time.fixedDeltaTime);
+
                     facing?.SetMovementDir(hoverDir);
                     break;
                 }
 
                 // Windup/Firing/Recover are handled by the Attack coroutine; no locomotion here.
         }
+
+        
     }
 
 

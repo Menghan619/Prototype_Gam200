@@ -108,7 +108,17 @@ public class WaterDemonAI : MonoBehaviour
                 {
                     if (dist > stopBand)
                     {
-                        rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+                        //rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+                        float spdMul = 1f;
+                        var status = GetComponent<EnemyStatusController>();
+                        if (status) spdMul = status.CurrentSpeedMultiplier;
+
+                        // when moving closer:
+                        rb.MovePosition(rb.position + dir * (moveSpeed * spdMul) * Time.fixedDeltaTime);
+
+                        // when backing off:
+                        //rb.MovePosition(rb.position - dir * (moveSpeed * 0.6f * spdMul) * Time.fixedDeltaTime);
+
                         facing?.SetMovementDir(dir);
                     }
                     break;
@@ -140,8 +150,13 @@ public class WaterDemonAI : MonoBehaviour
                         if (desired.sqrMagnitude < 0.0001f) desired = tangent;
                         hoverDir = desired.normalized;
                     }
+                    float spdMul = 1f;
+                    var status = GetComponent<EnemyStatusController>();
+                    if (status) spdMul = status.CurrentSpeedMultiplier;
 
-                    rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
+                    //rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
+                    rb.MovePosition(rb.position + hoverDir * (hoverSpeed * spdMul) * Time.fixedDeltaTime);
+
                     facing?.SetMovementDir(hoverDir);
                     break;
                 }

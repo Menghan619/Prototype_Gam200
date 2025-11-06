@@ -11,6 +11,12 @@ public class Abilities : MonoBehaviour
     [SerializeField] GameObject AbilityQQ;
     [SerializeField] GameObject AbilityWW;
     [SerializeField] GameObject AbilityWE;
+    [SerializeField] private GameObject AbilityEE_FireBase;  // enable collider window for EE
+    [SerializeField] private GameObject SteamBurstFloorPrefab; // instantiate floor DoT on WE/EW
+    [SerializeField] private GameObject AbilityQW_SteamBurst;
+    [SerializeField] private GameObject SteamBustLocation;
+    [SerializeField] private GameObject AbilityLMB;
+
     [SerializeField] private float hitWindow = 0.05f; // seconds the hitbox is open
 
     [SerializeField] private PlayerMovement movement;
@@ -19,6 +25,9 @@ public class Abilities : MonoBehaviour
     private Collider2D hitboxQQ; // use Collider2D for 2D
     private Collider2D hitboxWW;
     private Collider2D hitboxWE;
+    private Collider2D hitboxEE;
+    private Collider2D hitboxQW_SteamBurst;
+    private Collider2D hitboxLMB;
     // Update is called once per frame
 
     [Header("Facing")]
@@ -36,6 +45,12 @@ public class Abilities : MonoBehaviour
     private PlayerMana mana;
     [SerializeField] private AbilityCosts costs;
 
+    [Header("Player Dash Manager")]
+    [SerializeField] private float evadeDashDistance = 4f;
+    [SerializeField] private float evadeDashSpeed = 22f;
+    [SerializeField] private float evadeCooldown = 1.0f;
+    private float nextEvadeReady = 0f;
+
 
     private void Awake()
     {
@@ -45,6 +60,9 @@ public class Abilities : MonoBehaviour
             hitboxWW = AbilityWW.GetComponent<Collider2D>(); // or Collider2D
         if (AbilityWE != null)
             hitboxWE = AbilityWE.GetComponent<Collider2D>(); // or Collider2D
+        if (AbilityEE_FireBase) hitboxEE = AbilityEE_FireBase.GetComponent<Collider2D>();
+        if (AbilityQW_SteamBurst) hitboxQW_SteamBurst = AbilityQW_SteamBurst.GetComponent<Collider2D>();
+        if (AbilityLMB) hitboxLMB = AbilityLMB.GetComponent<Collider2D>();
         audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
 
         // NEW:
@@ -60,6 +78,14 @@ public class Abilities : MonoBehaviour
         if (hitboxWW != null) hitboxWW.enabled = false; // collider closed
         if (AbilityWE != null) AbilityWE.SetActive(false);
         if (hitboxWE != null) hitboxWE.enabled = false; // collider closed
+        if (AbilityEE_FireBase) AbilityEE_FireBase.SetActive(false);
+        if (hitboxEE) hitboxEE.enabled = false;
+        if (AbilityQW_SteamBurst) AbilityQW_SteamBurst.SetActive(false);
+        if (hitboxQW_SteamBurst) hitboxQW_SteamBurst.enabled = false;
+        if (AbilityLMB) AbilityLMB.SetActive(false);
+        if (hitboxLMB) hitboxLMB.enabled = false;
+
+
     }
     
 
@@ -79,11 +105,27 @@ public class Abilities : MonoBehaviour
             case "WW":
                 StartCoroutine(DashThenSlash());
                 break;
-            case "WE":
-                
-                CharSlashAnimes.SetTrigger("Aoe");
+            case "EE": // 🔥 Fire Slash (EE)
+                CharSlashAnimes.SetTrigger("FireSlash");        // placeholder
+                audioManager.PlaySFX(audioManager.ComboSlash);  // or FireSlash SFX
+                StartCoroutine(OpenHitboxWindow("EE"));
+                break;
+            case "WE": // 🔥🌀 Fire Cyclone (FW/WF) — move your current cyclone logic here
+                CharSlashAnimes.SetTrigger("FireCyclone");      // placeholder
                 audioManager.PlaySFX(audioManager.ComboSlash);
-                StartCoroutine(OpenHitboxWindow("WE"));
+                StartCoroutine(OpenHitboxWindow("WE"));         // if using a timed collider like your old WE
+                break;
+            case "QE": // ☁️♨️ Steam Burst (WE/EW) — spawn floor that applies slow+dot
+                CharSlashAnimes.SetTrigger("SteamBurst");       // placeholder
+                audioManager.PlaySFX(audioManager.ComboSlash);
+                StartCoroutine(OpenHitboxWindow("QE"));
+                StartCoroutine(DoSteamBurst());                 // new coroutine below
+                break;
+            case "LMB": // ☁️♨️ Steam Burst (WE/EW) — spawn floor that applies slow+dot
+                CharSlashAnimes.SetTrigger("WaterAttack");       // placeholder
+                audioManager.PlaySFX(audioManager.ComboSlash);
+                StartCoroutine(OpenHitboxWindow("LMB"));
+                            
                 break;
 
         }
@@ -153,9 +195,42 @@ public class Abilities : MonoBehaviour
                     // Do NOT call SetDestination — player will remain where the dash ended
                 }
                 break;
+            case "EE": // FireBase window
+                {
+                    cost = costs ? costs.FireE : 18;
+                    if (mana && !mana.Spend(cost)) yield break;
 
+                    if (movement) { movement.IsInputLocked = true; movement.Stop(); movement.enabled = false; }
+                    AbilityEE_FireBase.SetActive(true);
+                    if (hitboxEE) hitboxEE.enabled = true;
 
-            case "WE":
+                    yield return new WaitForSeconds(hitWindow);
+
+                    if (hitboxEE) hitboxEE.enabled = false;
+                    AbilityEE_FireBase.SetActive(false);
+                    if (movement) { movement.enabled = true; movement.IsInputLocked = false; }
+                    break;
+                }
+
+            case "WE": // (Only if you keep cyclone as a timed collider; if cyclone is a spawned prefab, spawn here instead)
+                {
+                    cost = costs ? (costs.FireCyclone_FW > 0 ? costs.FireCyclone_FW : costs.SteamBurst_WE) : 45;
+                    if (mana && !mana.Spend(cost)) yield break;
+
+                    if (movement) { movement.IsInputLocked = true; movement.Stop(); movement.enabled = false; }
+
+                    // Reuse your previous cyclone object (rename the old WE hitbox to FireCyclone and enable it here)
+                    // Example:
+                    // FireCycloneGO.SetActive(true); FireCycloneCollider.enabled = true;
+                    // yield return new WaitForSeconds(cycloneDuration);
+                    // FireCycloneCollider.enabled = false; FireCycloneGO.SetActive(false);
+
+                    yield return new WaitForSeconds(hitWindow); // placeholder if you keep the same pattern
+
+                    if (movement) { movement.enabled = true; movement.IsInputLocked = false; }
+                    break;
+                }
+            case "QE":
 
                 // PAY HERE (before locking movement / enabling hitbox)
                 cost = costs ? costs.SteamBurst_WE : 45;
@@ -167,15 +242,15 @@ public class Abilities : MonoBehaviour
                     movement.Stop();               // cancels current move
                     movement.enabled = false;      // optional: fully disable Update() while dashing
                 }
-                AbilityWE.SetActive(true);
-                if (hitboxWE != null) hitboxWE.enabled = true;
+                AbilityQW_SteamBurst.SetActive(true);
+                if (AbilityQW_SteamBurst != null) hitboxQW_SteamBurst.enabled = true;
 
                 // Keep it open long enough for OnTriggerEnter/OnCollision callbacks in the hitbox script to run
                 yield return new WaitForSeconds(hitWindow);
 
                 // Close
-                if (hitboxWE != null) hitboxWE.enabled = false;
-                AbilityWE.SetActive(false);
+                if (hitboxQW_SteamBurst != null) hitboxQW_SteamBurst.enabled = false;
+                AbilityQW_SteamBurst.SetActive(false);
 
                 if (movement != null)
                 {
@@ -184,6 +259,37 @@ public class Abilities : MonoBehaviour
                     // Do NOT call SetDestination — player will remain where the dash ended
                 }
                 break;
+
+            case "LMB":
+
+                // PAY HERE (before locking movement / enabling hitbox)
+                cost = costs ? costs.SteamBurst_WE : 45;
+                if (mana && !mana.Spend(cost)) yield break;
+
+                if (movement != null)
+                {
+                    movement.IsInputLocked = true; // ignore new clicks
+                    movement.Stop();               // cancels current move
+                    movement.enabled = false;      // optional: fully disable Update() while dashing
+                }
+                AbilityLMB.SetActive(true);
+                if (AbilityLMB != null) hitboxLMB.enabled = true;
+
+                // Keep it open long enough for OnTriggerEnter/OnCollision callbacks in the hitbox script to run
+                yield return new WaitForSeconds(hitWindow);
+
+                // Close
+                if (hitboxLMB != null) hitboxQW_SteamBurst.enabled = false;
+                AbilityLMB.SetActive(false);
+
+                if (movement != null)
+                {
+                    movement.enabled = true;
+                    movement.IsInputLocked = false;
+                    // Do NOT call SetDestination — player will remain where the dash ended
+                }
+                break;
+
         }
         //AbilityQQ.SetActive(true);
         //if (hitbox != null) hitbox.enabled = true;
@@ -293,6 +399,84 @@ public class Abilities : MonoBehaviour
             // Do NOT call SetDestination — player will remain where the dash ended
         }
     }
+    [SerializeField] private float steamCastWindup = 0.15f; // small delay before spawn
+
+    private IEnumerator DoSteamBurst()
+    {
+        //int cost = costs ? costs.SteamBurst_WE : 45;
+        //if (mana && !mana.Spend(cost)) yield break;
+
+        if (movement) { movement.IsInputLocked = true; movement.Stop(); movement.enabled = false; }
+
+        yield return new WaitForSeconds(steamCastWindup);
+
+        if (SteamBurstFloorPrefab)
+        {
+            var go = Instantiate(SteamBurstFloorPrefab, SteamBustLocation.transform.position, Quaternion.identity);
+            // Pass source (player) so DoT can attribute DamagePacket source for knockback frames etc.
+            var dot = go.GetComponent<SteamBoilDoT>();
+            if (dot) dot.Init(owner: this.transform);
+        }
+
+        if (movement) { movement.enabled = true; movement.IsInputLocked = false; }
+    }
+
+
+    public void DashEvade()
+    {
+        if (Time.time < nextEvadeReady) return;
+        StartCoroutine(CoDashEvade());
+    }
+
+    private IEnumerator CoDashEvade()
+    {
+        nextEvadeReady = Time.time + evadeCooldown;
+
+        if (movement) { movement.IsInputLocked = true; movement.Stop(); movement.enabled = false; }
+
+        // dash direction = towards mouse
+        float z = Camera.main.WorldToScreenPoint(transform.position).z;
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, z));
+        Vector2 dir = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
+        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+
+        float maxDist = evadeDashDistance;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, evadeDashDistance, dashBlockers);
+        if (hit.collider) maxDist = Mathf.Max(0f, hit.distance - 0.05f);
+
+        Vector2 target = (Vector2)transform.position + dir * maxDist;
+
+        // Optional: i-frames hook later (PlayerHealth.SetInvulnerable(true))
+        audioManager.PlaySFX(audioManager.DashSFX);
+
+        if (rb)
+        {
+            while (Vector2.Distance(rb.position, target) > 0.02f)
+            {
+                Vector2 next = Vector2.MoveTowards(rb.position, target, evadeDashSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(next);
+                yield return new WaitForFixedUpdate();
+            }
+#if UNITY_6000_0_OR_NEWER
+            rb.linearVelocity = Vector2.zero;
+#else
+        rb.velocity = Vector2.zero;
+#endif
+        }
+        else
+        {
+            while (Vector2.Distance(transform.position, target) > 0.02f)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, target, evadeDashSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+
+        // Optional: end i-frames hook here (PlayerHealth.SetInvulnerable(false))
+
+        if (movement) { movement.enabled = true; movement.IsInputLocked = false; }
+    }
+
 
 
 }

@@ -13,6 +13,7 @@ public class AbilityCosts : ScriptableObject
 
     [Header("Fusions")]
     public int SteamBurst_WE = 45; // Fire+Water
+    public int FireCyclone_FW = 45; // Fire+Wind
     // public int FireCyclone_FW = 45; // future
     // public int TyphoonGuard_QW = 45; // future
 }
