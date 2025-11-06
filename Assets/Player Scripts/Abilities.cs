@@ -8,6 +8,8 @@ public class Abilities : MonoBehaviour
 
     public Animator SlashAnimes;
     public Animator CharSlashAnimes;
+    public Animator PlayerVFX;
+    public Animator SteamBurstCone;
     [SerializeField] GameObject AbilityQQ;
     [SerializeField] GameObject AbilityWW;
     [SerializeField] GameObject AbilityWE;
@@ -102,16 +104,17 @@ public class Abilities : MonoBehaviour
         switch (AbilityUsed)
         {
             case "QQ":
-                SlashAnimes.SetTrigger("WaterSlash");
+                //SlashAnimes.SetTrigger("WaterSlash");
                 audioManager.PlaySFX(audioManager.WaterSlash);
                 StartCoroutine(OpenHitboxWindow("QQ"));
 
                 break;
             case "WW":
+                PlayerVFX.SetTrigger("WindVFX");
                 StartCoroutine(DashThenSlash());
                 break;
             case "EE": // 🔥 Fire Slash (EE)
-                CharSlashAnimes.SetTrigger("FireSlash");        // placeholder
+                //CharSlashAnimes.SetTrigger("FireSlash");        // placeholder
                 audioManager.PlaySFX(audioManager.ComboSlash);  // or FireSlash SFX
                 StartCoroutine(OpenHitboxWindow("EE"));
                 break;
@@ -121,7 +124,8 @@ public class Abilities : MonoBehaviour
                 StartCoroutine(OpenHitboxWindow("WE"));         // if using a timed collider like your old WE
                 break;
             case "QE": // ☁️♨️ Steam Burst (WE/EW) — spawn floor that applies slow+dot
-                CharSlashAnimes.SetTrigger("SteamBurst");       // placeholder
+                SlashAnimes.SetTrigger("SteamBurst");
+                SteamBurstCone.SetTrigger("SteamCone"); // placeholder
                 audioManager.PlaySFX(audioManager.ComboSlash);
                 StartCoroutine(OpenHitboxWindow("QE"));
                 StartCoroutine(DoSteamBurst());                 // new coroutine below

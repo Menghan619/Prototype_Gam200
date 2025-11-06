@@ -117,6 +117,7 @@ public class WaterDemonDeathExplode : MonoBehaviour
             explodeRadius,
             playerLayers
         );
+        if (animator && !string.IsNullOrEmpty(chargeTrigger)) animator.SetTrigger(chargeTrigger);
 
         // Apply damage to any PlayerHealth found among overlaps
         for (int i = 0; i < hits.Length; i++)

@@ -10,6 +10,7 @@ public class SteamBoilDoT : MonoBehaviour
     [Header("DoT")]
     public float tickInterval = 0.5f;
     public float damagePerTick = 3f;
+    public Animator DotAnime;
 
     [Header("Slow While Inside")]
     public float slowMultiplier = 0.6f;  // 0.6 = 40% slow
@@ -20,6 +21,8 @@ public class SteamBoilDoT : MonoBehaviour
     private float nextGlobalTick;
     private readonly Dictionary<Health, float> nextTickPerTarget = new();
     private readonly Dictionary<EnemyStatusController, float> slowRefreshPerTarget = new();
+
+
 
     public void Init(Transform owner) => this.owner = owner;
 
@@ -42,6 +45,7 @@ public class SteamBoilDoT : MonoBehaviour
 
     void Start()
     {
+        DotAnime.SetTrigger("SteamDot");
         Destroy(gameObject, lifeTime);
     }
 

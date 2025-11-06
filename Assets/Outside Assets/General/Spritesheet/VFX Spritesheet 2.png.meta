@@ -1,0 +1,1445 @@
+fileFormatVersion: 2
+guid: 24512708eb4f38846be684ef4ae5c450
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6917831675285057043
+    second: VFX Spritesheet_0
+  - first:
+      213: 271877866965638190
+    second: VFX Spritesheet_1
+  - first:
+      213: -7155109535841504650
+    second: VFX Spritesheet_2
+  - first:
+      213: 7189789072395986825
+    second: VFX Spritesheet_3
+  - first:
+      213: 3839154158799957068
+    second: VFX Spritesheet_4
+  - first:
+      213: -2489385970089177859
+    second: VFX Spritesheet_5
+  - first:
+      213: -2427972527716385625
+    second: VFX Spritesheet_6
+  - first:
+      213: 1204362362484910711
+    second: VFX Spritesheet_7
+  - first:
+      213: 1718859760444315321
+    second: VFX Spritesheet_8
+  - first:
+      213: 3832454102438941019
+    second: VFX Spritesheet_9
+  - first:
+      213: 5454972838508538693
+    second: VFX Spritesheet_10
+  - first:
+      213: 6805727497113985148
+    second: VFX Spritesheet_11
+  - first:
+      213: 7663344624268820696
+    second: VFX Spritesheet_12
+  - first:
+      213: 7678586982059903359
+    second: VFX Spritesheet_13
+  - first:
+      213: -118772272081998404
+    second: VFX Spritesheet_14
+  - first:
+      213: 4044727898748061928
+    second: VFX Spritesheet_15
+  - first:
+      213: 8019390207845849567
+    second: VFX Spritesheet_16
+  - first:
+      213: -5888836503262975894
+    second: VFX Spritesheet_17
+  - first:
+      213: 543407491370558128
+    second: VFX Spritesheet_18
+  - first:
+      213: -6420323099673814850
+    second: VFX Spritesheet_19
+  - first:
+      213: 5608919594096644563
+    second: VFX Spritesheet_20
+  - first:
+      213: -261190672556116838
+    second: VFX Spritesheet_21
+  - first:
+      213: -8073220082637475954
+    second: VFX Spritesheet_22
+  - first:
+      213: 7352336171522623536
+    second: VFX Spritesheet_23
+  - first:
+      213: 5568088881103409639
+    second: VFX Spritesheet_24
+  - first:
+      213: 7230346719946778862
+    second: VFX Spritesheet_25
+  - first:
+      213: -4906631548187972076
+    second: VFX Spritesheet_26
+  - first:
+      213: 6962972227943929118
+    second: VFX Spritesheet_27
+  - first:
+      213: -2825808057401484391
+    second: VFX Spritesheet_28
+  - first:
+      213: 1707640610986186487
+    second: VFX Spritesheet_29
+  - first:
+      213: 4474706113444709751
+    second: VFX Spritesheet_30
+  - first:
+      213: -8992009819540785482
+    second: VFX Spritesheet_31
+  - first:
+      213: -4316820522959182092
+    second: VFX Spritesheet_32
+  - first:
+      213: -2247549410979677724
+    second: VFX Spritesheet_33
+  - first:
+      213: -3555715050557376314
+    second: VFX Spritesheet_34
+  - first:
+      213: 7616413906240629771
+    second: VFX Spritesheet_35
+  - first:
+      213: 1221477656215603976
+    second: VFX Spritesheet_36
+  - first:
+      213: -8693594116605548661
+    second: VFX Spritesheet_37
+  - first:
+      213: -817476319062505381
+    second: VFX Spritesheet_38
+  - first:
+      213: -6768593555292934052
+    second: VFX Spritesheet_39
+  - first:
+      213: 1171971704209006835
+    second: VFX Spritesheet_40
+  - first:
+      213: 1155900429409627141
+    second: VFX Spritesheet_41
+  - first:
+      213: 9084835919629592104
+    second: VFX Spritesheet_42
+  - first:
+      213: 6757391904412372770
+    second: VFX Spritesheet_43
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VFX Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b687b9d33a9cf344a725fc9c78f0192
+      internalID: -1317482420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 2812
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbcaec90788e5a34a9cd78ce26bfef1f
+      internalID: -804563826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f8b4f67a6790f742b36d17e54370c3e
+      internalID: 112439232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e76f2edbec57304d80bd92e335cdb78
+      internalID: -1361617623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 656f0906a7cca7a4b88984b70093b290
+      internalID: -1158679469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 2445
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9030da4ed984eb84da1f379848c834f8
+      internalID: -1694514267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 3022
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 014c60b4589451148baa8d9849418984
+      internalID: -59118527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5813a77a131db2b4290cff4ab6ee37f5
+      internalID: -1327756847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d01f00c98226efe4dbb0cbd6e973eccb
+      internalID: -858622226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3419ef9780358434d82689a47aead3d0
+      internalID: 675845361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74db7401978c57541acb65f22fa25733
+      internalID: -2134453779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 5632
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1da298a36437494baaf219830975293
+      internalID: 1561091292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2312
+        width: 258
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9dcd29b34936d4886c96c13cad80a0
+      internalID: 1344396278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2588
+        width: 260
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55b827a647fc15348ae2b12cfa0e4bfc
+      internalID: 883879834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 2583
+        width: 251
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218a2c88953c82445a8a786d4f492df9
+      internalID: 1355158142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1792
+        width: 512
+        height: 512
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b27a4af38a6e440b19742c9b6be926
+      internalID: 699682595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46497d9c55d6b594b8b8af00a64e0c97
+      internalID: -1686787612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fe19231a07229b4999918d9c4dbe61d
+      internalID: 530492315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b283a00a2e7c8f74e9c40f04de2e1bf5
+      internalID: -1626068506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 404b4db6406c82f4ebd92c67f2177988
+      internalID: -1590120615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 966439351c1504c44944163db7bb5e02
+      internalID: -492585941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8454541c993cdba418e5960fda0246e5
+      internalID: -551064351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 1280
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4e3e93c9d97c524ab70b9a371172189
+      internalID: 1445351186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dea83835e5519044931b8d51902c717
+      internalID: -824744265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5873df5c792c1494596bf233dc5befb6
+      internalID: 326014338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 508d0cd40b26ed843ae318394e7f029e
+      internalID: 985982178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0d3d89c5323273428894770d9995cfa
+      internalID: -1917863123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 220b045ecd4097044bdf83bb8c937789
+      internalID: -1606521830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5331ea857934a924fab0df7999699504
+      internalID: -755825196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd0cdab22632f2b4e856ea82681312d7
+      internalID: 1000879835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 592fec8eb85128340b00a3b477ec3866
+      internalID: -1864319091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 768
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d581331422296f64a9a7b46c0eafe863
+      internalID: -814267679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6ff19c21811bb4f91c1ed62ec2a87d
+      internalID: 514164867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e7e54f8bf925043b517f12dde95d43
+      internalID: 720501710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f20254ff6e626a4da57634486c4edb4
+      internalID: 1892968883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9412e789f0ae8b84abe3df0e2383a5bb
+      internalID: 1982541466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694feca1fc117cc44bd150aae5ef8816
+      internalID: -2066706229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d6436422e661a1469f89688dbd49322
+      internalID: -1495759066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_42
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142a4eb4cb06c1541bad8c6b3fd0e075
+      internalID: -1279372817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_43
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 256
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4fe51d257e3ac9458a731a7e2271cec
+      internalID: 1005841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 0
+        width: 246
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c6bd8ec3cef063418288890d161a1d2
+      internalID: 1922255342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 246
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce1f1781217f90d409bf1905ddc77826
+      internalID: 623087635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 4
+        width: 246
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4791b1c9ae8d3cf4c8acc310b15e0306
+      internalID: 1253845481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 0
+        width: 246
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49cd5b3c3305c384bb68eb5708fb065d
+      internalID: -128058320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 0
+        width: 246
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dab122aa53ad414ead24ff12773f6d6
+      internalID: -2060257853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 2583
+        width: 251
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54a3879a1da7d1c42b39b8a481517c54
+      internalID: -745727821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_44
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 2582
+        width: 240
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abd8c6f8265c9974f8ca07362531e900
+      internalID: 1653023810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_47
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 2582
+        width: 256
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 260300fbcb3da6e4cb92dee0e1fd695c
+      internalID: 1376832916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_48
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 2312
+        width: 258
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 565967d88dd04dc4dae8e6d09c8b8e96
+      internalID: 1477076385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_49
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 2312
+        width: 229
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 575cfcf0858e57b4a8f942565cd0c612
+      internalID: 2010681302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_50
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 2312
+        width: 229
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7a9159da13b33e44b26ad64fdad828f
+      internalID: 640282963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VFX Spritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 2312
+        width: 229
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7798a3060cea25043a86d0ece38fb25d
+      internalID: 1706867906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 643fab0a03e0a604fa627c4f3f335c8d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      VFX Spritesheet_0: -1317482420
+      VFX Spritesheet_1: -804563826
+      VFX Spritesheet_10: -2134453779
+      VFX Spritesheet_11: 1561091292
+      VFX Spritesheet_12: 1344396278
+      VFX Spritesheet_13: 883879834
+      VFX Spritesheet_14: 1355158142
+      VFX Spritesheet_15: 1253845481
+      VFX Spritesheet_16: 699682595
+      VFX Spritesheet_17: -128058320
+      VFX Spritesheet_18: -2060257853
+      VFX Spritesheet_19: -1686787612
+      VFX Spritesheet_2: 112439232
+      VFX Spritesheet_20: 530492315
+      VFX Spritesheet_21: -1626068506
+      VFX Spritesheet_22: -1590120615
+      VFX Spritesheet_23: -492585941
+      VFX Spritesheet_24: -551064351
+      VFX Spritesheet_25: 1445351186
+      VFX Spritesheet_26: -824744265
+      VFX Spritesheet_27: 326014338
+      VFX Spritesheet_28: 985982178
+      VFX Spritesheet_29: -1917863123
+      VFX Spritesheet_3: -1361617623
+      VFX Spritesheet_30: -1606521830
+      VFX Spritesheet_31: -755825196
+      VFX Spritesheet_32: 1000879835
+      VFX Spritesheet_33: -1864319091
+      VFX Spritesheet_34: -814267679
+      VFX Spritesheet_35: -745727821
+      VFX Spritesheet_36: 514164867
+      VFX Spritesheet_37: 720501710
+      VFX Spritesheet_38: 1892968883
+      VFX Spritesheet_39: 1982541466
+      VFX Spritesheet_4: -1158679469
+      VFX Spritesheet_40: -2066706229
+      VFX Spritesheet_41: -1495759066
+      VFX Spritesheet_42: -1279372817
+      VFX Spritesheet_43: 1005841
+      VFX Spritesheet_44: 1653023810
+      VFX Spritesheet_45: 1922255342
+      VFX Spritesheet_46: 623087635
+      VFX Spritesheet_47: 1376832916
+      VFX Spritesheet_48: 1477076385
+      VFX Spritesheet_49: 2010681302
+      VFX Spritesheet_5: -1694514267
+      VFX Spritesheet_50: 640282963
+      VFX Spritesheet_51: 1706867906
+      VFX Spritesheet_6: -59118527
+      VFX Spritesheet_7: -1327756847
+      VFX Spritesheet_8: -858622226
+      VFX Spritesheet_9: 675845361
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
