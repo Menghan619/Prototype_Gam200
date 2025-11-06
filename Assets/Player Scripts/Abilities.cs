@@ -51,6 +51,8 @@ public class Abilities : MonoBehaviour
     [SerializeField] private float evadeCooldown = 1.0f;
     private float nextEvadeReady = 0f;
 
+    [SerializeField] private float evadeIFrameDuration = 1f;  // tweak to taste
+    private PlayerHealth playerHealth;
 
     private void Awake()
     {
@@ -68,6 +70,9 @@ public class Abilities : MonoBehaviour
         // NEW:
         if (!mana) mana = GetComponent<PlayerMana>();
         if (!rb) rb = GetComponent<Rigidbody2D>();
+
+        if (!playerHealth) playerHealth = GetComponent<PlayerHealth>();
+
         originalGravity = rb ? rb.gravityScale : 0f;
     }
     private void Start()
@@ -262,9 +267,9 @@ public class Abilities : MonoBehaviour
 
             case "LMB":
 
-                // PAY HERE (before locking movement / enabling hitbox)
-                cost = costs ? costs.SteamBurst_WE : 45;
-                if (mana && !mana.Spend(cost)) yield break;
+                // LMB IS FREE, NO MANA COST
+                
+                
 
                 if (movement != null)
                 {
@@ -279,7 +284,7 @@ public class Abilities : MonoBehaviour
                 yield return new WaitForSeconds(hitWindow);
 
                 // Close
-                if (hitboxLMB != null) hitboxQW_SteamBurst.enabled = false;
+                if (hitboxLMB != null) hitboxLMB.enabled = false;
                 AbilityLMB.SetActive(false);
 
                 if (movement != null)
@@ -425,6 +430,7 @@ public class Abilities : MonoBehaviour
     public void DashEvade()
     {
         if (Time.time < nextEvadeReady) return;
+        CharSlashAnimes.SetTrigger("Evade");
         StartCoroutine(CoDashEvade());
     }
 
@@ -447,6 +453,9 @@ public class Abilities : MonoBehaviour
         Vector2 target = (Vector2)transform.position + dir * maxDist;
 
         // Optional: i-frames hook later (PlayerHealth.SetInvulnerable(true))
+        if (playerHealth) playerHealth.GrantTemporaryInvulnerability(evadeIFrameDuration, blink: false);
+
+
         audioManager.PlaySFX(audioManager.DashSFX);
 
         if (rb)

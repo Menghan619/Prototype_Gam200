@@ -178,7 +178,9 @@ public class PlayerAttack : MonoBehaviour
         // 1) Dash (D): single press, no mana
         if (Input.GetKeyDown(KeyCode.D))
         {
+            FaceTowardsMouse();
             AbilitiesScript.DashEvade();
+            
         }
 
         // 2) Basic attack (LMB): short neutral slash, no mana (only if you have it hooked)
@@ -187,8 +189,13 @@ public class PlayerAttack : MonoBehaviour
             // Optional: face + animator trigger for basic slash if you use one
             FaceTowardsMouse();
             // If you have a basic call, uncomment:
-            AbilitiesScript.AttackAbility("LMB"); 
-            // CharSlashAnime.SetTrigger("BasicAttack");
+            if (Time.time >= nextAttackTime)
+            {
+                AbilitiesScript.AttackAbility("LMB");
+                CharSlashAnime.SetTrigger("BasicAttack");
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+            
         }
 
         // --- 2-key combo buffer for Q / W / E ---
@@ -250,7 +257,7 @@ public class PlayerAttack : MonoBehaviour
                             elementInd.sprite = FireIcon;
                             FaceTowardsMouse();
                             AbilitiesScript.AttackAbility("EE");     // spend inside Abilities
-                            CharSlashAnime.SetTrigger("WaterAttack"); // placeholder trigger
+                            CharSlashAnime.SetTrigger("FireAttack"); // placeholder trigger
                             nextAttackTime = Time.time + 1f / attackRate;
                         }
                         KeyInputs.Clear();
@@ -265,7 +272,7 @@ public class PlayerAttack : MonoBehaviour
                             elementInd.sprite = FireIcon;            // Steam visual cue for now
                             FaceTowardsMouse();
                             AbilitiesScript.AttackAbility("QE");     // DoSteamBurst() inside Abilities
-                            CharSlashAnime.SetTrigger("WaterAttack"); // placeholder trigger
+                            CharSlashAnime.SetTrigger("SteamBurst"); // placeholder trigger
                             nextAttackTime = Time.time + 1f / attackRate;
                         }
                         KeyInputs.Clear();

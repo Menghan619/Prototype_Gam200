@@ -198,4 +198,36 @@ public class PlayerHealth : MonoBehaviour
         // Set the routine to null, signaling that it's finished.
         flashRoutine = null;
     }
+
+    // --- Dash / utility i-frames (independent of HurtFlow) ---
+    public void GrantTemporaryInvulnerability(float durationSeconds, bool blink = false)
+    {
+        StartCoroutine(CoTempInvuln(durationSeconds, blink));
+    }
+
+    private IEnumerator CoTempInvuln(float durationSeconds, bool blink)
+    {
+        IsInvulnerable = true;
+
+        if (blink && sprite)
+        {
+            float t = 0f;
+            bool vis = true;
+            while (t < durationSeconds)
+            {
+                vis = !vis;
+                sprite.enabled = vis;
+                float step = Mathf.Min(blinkInterval, durationSeconds - t);
+                t += step;
+                yield return new WaitForSecondsRealtime(step);
+            }
+            sprite.enabled = true;
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(durationSeconds);
+        }
+
+        IsInvulnerable = false;
+    }
 }
