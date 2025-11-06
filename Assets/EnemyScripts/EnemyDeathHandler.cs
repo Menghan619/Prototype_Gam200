@@ -159,8 +159,7 @@ public class EnemyDeathHandler : MonoBehaviour
         StopEnemyAI();
 
         // 2) Trigger death anim
-        if (anim && !string.IsNullOrEmpty(deathTriggerName))
-            anim.SetTrigger(deathTriggerName);
+        
 
         // 3) Figure out how long to wait (death clip length or fallback)
         float delay = fallbackDeathDelay;
@@ -183,7 +182,7 @@ public class EnemyDeathHandler : MonoBehaviour
     private IEnumerator CoDeathSequence(float deathAnimTime)
     {
         // wait for the animation time (game-time, not realtime, so it respects any animator speed)
-        yield return new WaitForSeconds(deathAnimTime);
+        //yield return new WaitForSeconds(deathAnimTime);
 
         if (fadeOutOnDeath && sprites.Count > 0 && fadeDuration > 0f)
             yield return StartCoroutine(CoFadeSprites());
@@ -194,6 +193,9 @@ public class EnemyDeathHandler : MonoBehaviour
 
     private IEnumerator CoFadeSprites()
     {
+
+        if (anim && !string.IsNullOrEmpty(deathTriggerName))
+            anim.SetTrigger(deathTriggerName);
         // capture starting colors
         var startColors = new Color[sprites.Count];
         for (int i = 0; i < sprites.Count; i++)

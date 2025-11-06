@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UIElements.Experimental;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class FireDemonAI : MonoBehaviour
 {
     public Animator animator; // Assign your enemy's Animator in the Inspector
+
+    private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
+    [SerializeField] private float moveAnimSpeedThreshold = 0.05f; // tune
 
     public enum Brain { Chase, Windup, Firing, Recover, Hover }
     private Brain brain = Brain.Chase;
@@ -197,58 +201,123 @@ public class FireDemonAI : MonoBehaviour
 
         // Don’t fight physics knockback
         var enemy = GetComponent<Enemy>();
-        if (enemy != null && enemy.InKnockback) return;
+        if (enemy != null && enemy.InKnockback)
+        {
+
+            // If you want the move anim during knockback, use rb.linearVelocity magnitude:
+            if (animator) animator.SetBool(IsMovingHash, rb.linearVelocity.magnitude > moveAnimSpeedThreshold);
+            return;
+
+        }
 
         Vector2 to = (Vector2)player.position - (Vector2)transform.position;
         float dist = to.magnitude;
         Vector2 dir = dist > 0.0001f ? to / dist : Vector2.right;
 
+        bool movedThisTick = false;
         switch (brain)
         {
+            //case Brain.Chase:
+            //    {
+            //        float spdMul = 1f;
+            //        var status = GetComponent<EnemyStatusController>();
+            //        if (status) spdMul = status.CurrentSpeedMultiplier;
+            //        if (dist > preferRange * 1.1f)
+            //        {
+            //            //rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+            //            // when moving closer:
+            //            rb.MovePosition(rb.position + dir * (moveSpeed * spdMul) * Time.fixedDeltaTime);
+
+            //            facing?.SetMovementDir(dir);
+            //        }
+            //        else if (dist < preferRange * backoffFactor)
+            //        {
+            //            Vector2 away = -dir;
+            //            //rb.MovePosition(rb.position + away * (moveSpeed * 0.6f) * Time.fixedDeltaTime);
+            //            // when backing off:
+            //            rb.MovePosition(rb.position + away * (moveSpeed * 0.6f * spdMul) * Time.fixedDeltaTime);
+            //            movedThisTick = step.sqrMagnitude > (moveAnimSpeedThreshold * moveAnimSpeedThreshold);
+
+            //            facing?.SetMovementDir(away);
+            //        }
+            //        // else: hold
+            //        break;
+            //    }
             case Brain.Chase:
                 {
                     float spdMul = 1f;
                     var status = GetComponent<EnemyStatusController>();
                     if (status) spdMul = status.CurrentSpeedMultiplier;
+
                     if (dist > preferRange * 1.1f)
                     {
-                        //rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
-                        // when moving closer:
-                        rb.MovePosition(rb.position + dir * (moveSpeed * spdMul) * Time.fixedDeltaTime);
-
+                        Vector2 step = dir * (moveSpeed * spdMul) * Time.fixedDeltaTime;
+                        rb.MovePosition(rb.position + step);
                         facing?.SetMovementDir(dir);
+                        movedThisTick = step.sqrMagnitude > (moveAnimSpeedThreshold * moveAnimSpeedThreshold);
                     }
                     else if (dist < preferRange * backoffFactor)
                     {
                         Vector2 away = -dir;
-                        //rb.MovePosition(rb.position + away * (moveSpeed * 0.6f) * Time.fixedDeltaTime);
-                        // when backing off:
-                        rb.MovePosition(rb.position + away * (moveSpeed * 0.6f * spdMul) * Time.fixedDeltaTime);
+                        Vector2 step = away * (moveSpeed * 0.6f * spdMul) * Time.fixedDeltaTime;
+                        rb.MovePosition(rb.position + step);
                         facing?.SetMovementDir(away);
+                        movedThisTick = step.sqrMagnitude > (moveAnimSpeedThreshold * moveAnimSpeedThreshold);
                     }
-                    // else: hold
                     break;
                 }
 
+            //case Brain.Hover:
+            //    {
+            //        // Recompute hoverDir every jitter interval
+            //        if (Time.time >= nextHoverJitterTime || hoverDir == Vector2.zero)
+            //        {
+            //            nextHoverJitterTime = Time.time + hoverJitterInterval;
+
+            //            // Tangent around the player (random side)
+            //            Vector2 tangent = new Vector2(-dir.y, dir.x);
+            //            if (Random.value < 0.5f) tangent = -tangent;
+
+            //            // Radial correction to stay inside band
+            //            Vector2 radial = Vector2.zero;
+            //            if (dist < hoverMinDist) radial = -dir;       // push outward
+            //            else if (dist > hoverMaxDist) radial = dir;   // pull inward
+
+            //            Vector2 desired = tangent * tangentialBias + radial * (1f - tangentialBias);
+
+            //            // Small random turn
+            //            float ang = Random.Range(-hoverJitterAngleDeg, hoverJitterAngleDeg) * Mathf.Deg2Rad;
+            //            float ca = Mathf.Cos(ang), sa = Mathf.Sin(ang);
+            //            desired = new Vector2(desired.x * ca - desired.y * sa, desired.x * sa + desired.y * ca);
+
+            //            if (desired.sqrMagnitude < 0.0001f) desired = tangent;
+            //            hoverDir = desired.normalized;
+            //        }
+            //        float spdMul = 1f;
+            //        var status = GetComponent<EnemyStatusController>();
+            //        if (status) spdMul = status.CurrentSpeedMultiplier;
+            //        // Move along hoverDir
+            //        //rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
+            //        rb.MovePosition(rb.position + hoverDir * (hoverSpeed * spdMul) * Time.fixedDeltaTime);
+
+            //        facing?.SetMovementDir(hoverDir);
+            //        break;
+            //    }
             case Brain.Hover:
                 {
-                    // Recompute hoverDir every jitter interval
                     if (Time.time >= nextHoverJitterTime || hoverDir == Vector2.zero)
                     {
                         nextHoverJitterTime = Time.time + hoverJitterInterval;
 
-                        // Tangent around the player (random side)
                         Vector2 tangent = new Vector2(-dir.y, dir.x);
                         if (Random.value < 0.5f) tangent = -tangent;
 
-                        // Radial correction to stay inside band
                         Vector2 radial = Vector2.zero;
                         if (dist < hoverMinDist) radial = -dir;       // push outward
                         else if (dist > hoverMaxDist) radial = dir;   // pull inward
 
                         Vector2 desired = tangent * tangentialBias + radial * (1f - tangentialBias);
 
-                        // Small random turn
                         float ang = Random.Range(-hoverJitterAngleDeg, hoverJitterAngleDeg) * Mathf.Deg2Rad;
                         float ca = Mathf.Cos(ang), sa = Mathf.Sin(ang);
                         desired = new Vector2(desired.x * ca - desired.y * sa, desired.x * sa + desired.y * ca);
@@ -259,18 +328,18 @@ public class FireDemonAI : MonoBehaviour
                     float spdMul = 1f;
                     var status = GetComponent<EnemyStatusController>();
                     if (status) spdMul = status.CurrentSpeedMultiplier;
-                    // Move along hoverDir
-                    //rb.MovePosition(rb.position + hoverDir * hoverSpeed * Time.fixedDeltaTime);
-                    rb.MovePosition(rb.position + hoverDir * (hoverSpeed * spdMul) * Time.fixedDeltaTime);
 
+                    Vector2 step = hoverDir * (hoverSpeed * spdMul) * Time.fixedDeltaTime;
+                    rb.MovePosition(rb.position + step);
                     facing?.SetMovementDir(hoverDir);
+                    movedThisTick = step.sqrMagnitude > (moveAnimSpeedThreshold * moveAnimSpeedThreshold);
                     break;
+
+                    // Windup/Firing/Recover are handled by the Attack coroutine; no locomotion here.
                 }
 
-                // Windup/Firing/Recover are handled by the Attack coroutine; no locomotion here.
-        }
 
-        
+        }
     }
 
 
@@ -283,13 +352,15 @@ public class FireDemonAI : MonoBehaviour
     IEnumerator AttackCycle()
     {
         brain = Brain.Windup;
+        if (animator) animator.SetBool(IsMovingHash, false);
 
+        // face lock + charge
         Vector2 shotDir = player ? (player.position - transform.position).normalized : Vector2.right;
         // Lock facing for the whole attack window so it doesn't flip mid-shot
         if (facing) facing.BeginAttackFacing(shotDir, windup + endlag + 0.05f);
 
         // Trigger charge animation
-        if (animator) animator.SetTrigger("Charge");
+        if (animator) animator.SetTrigger("FireCharge");
         // TODO: play charge VFX/SFX here (anim trigger if you have one)
         yield return new WaitForSeconds(windup);
 
@@ -297,7 +368,7 @@ public class FireDemonAI : MonoBehaviour
 
         // FIRE
         brain = Brain.Firing;
-        if (animator) animator.SetTrigger("Shoot"); // optional shoot anim trigger
+        if (animator) animator.SetTrigger("FireEnemyAttack"); // optional shoot anim trigger
         FireOneShot();
 
         brain = Brain.Recover;

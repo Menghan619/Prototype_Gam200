@@ -2917,7 +2917,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6549153270077250573, guid: 10b5c89e0a0303a4db48caaee92db8c1, type: 3}
+  m_Sprite: {fileID: -3963952964553899685, guid: 9d77253a5c4cb384faefb4e7e153623f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2981,7 +2981,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.03, y: 1.63}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3091,7 +3091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0049df882dc8e0449080658d959f136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 502688549}
+  moveAnimSpeedThreshold: 0.05
   hoverMinDist: 3.6
   hoverMaxDist: 5.6
   hoverSpeed: 5
@@ -6054,8 +6055,9 @@ MonoBehaviour:
     m_Bits: 0
   costs: {fileID: 11400000, guid: 73fd65aa82cb4e14ea4ba2f7f82f5358, type: 2}
   evadeDashDistance: 8
-  evadeDashSpeed: 40
+  evadeDashSpeed: 20
   evadeCooldown: 1
+  evadeIFrameDuration: 1
   steamCastWindup: 0.15
 --- !u!50 &1011331247
 Rigidbody2D:
@@ -10678,16 +10680,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.12647319, y: -0.80086815}
-      - {x: -0.23982966, y: 0.020458594}
-      - {x: -0.26626706, y: 0.48117173}
-      - {x: -0.14976299, y: 1.1299222}
-      - {x: 0.53142214, y: 1.5620947}
-      - {x: 1.0772628, y: 1.2216268}
-      - {x: 1.1302328, y: 0.29580182}
-      - {x: 1.2203408, y: -1.3315268}
-      - {x: 0.44398803, y: -2.2477546}
-      - {x: 0.032678723, y: -1.4632908}
+    - - {x: 0.08780801, y: -0.8544385}
+      - {x: 0.24230778, y: -0.15811084}
+      - {x: 0.25158352, y: 0.57045573}
+      - {x: 0.2788021, y: 1.3263475}
+      - {x: -0.07571113, y: 1.9192317}
+      - {x: 0.648699, y: 2.4537497}
+      - {x: 1.9159355, y: 2.0279176}
+      - {x: 2.2950115, y: -0.082564466}
+      - {x: 1.7203335, y: -1.7422347}
+      - {x: 0.6939823, y: -2.0156155}
+      - {x: 0.10410488, y: -1.7311436}
   m_UseDelaunayMesh: 0
 --- !u!1 &1991459097
 GameObject:
@@ -11078,8 +11081,8 @@ GameObject:
   - component: {fileID: 2069866951}
   - component: {fileID: 2069866950}
   - component: {fileID: 2069866949}
-  - component: {fileID: 2069866953}
   - component: {fileID: 2069866954}
+  - component: {fileID: 2069866953}
   - component: {fileID: 2069866955}
   - component: {fileID: 2069866957}
   - component: {fileID: 2069866958}
@@ -11272,7 +11275,7 @@ Animator:
   m_GameObject: {fileID: 2069866948}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8772e19ff5f72d4c891d3377e9cb44b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4a348e88fb4005146a0d08cfb2087419, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
