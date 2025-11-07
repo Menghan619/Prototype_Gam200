@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public bool IsInputLocked { get; set; } = false;
     public Animator CharMoveAnim;
+    AudioManager audioManager;
 
     [Header("Facing")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -24,8 +25,13 @@ public class PlayerMovement : MonoBehaviour
         // Collision Detection = Continuous
         // Freeze Rotation Z = ON (so bumps don�ft spin you)
         // Interpolate = Interpolate (smoother visuals)
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
 
+    public void FootSteps()
+    {
+        audioManager.PlayWalk();
+    }
     // Update is called once per frame
     void Update()
     {

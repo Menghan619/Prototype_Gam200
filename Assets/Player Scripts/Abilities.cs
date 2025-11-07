@@ -119,7 +119,7 @@ public class Abilities : MonoBehaviour
                 StartCoroutine(OpenHitboxWindow("EE"));
                 break;
             case "WE": // 🔥🌀 Fire Cyclone (FW/WF) — move your current cyclone logic here
-                CharSlashAnimes.SetTrigger("FireCyclone");      // placeholder
+                CharSlashAnimes.SetTrigger("Aoe");      // placeholder
                 audioManager.PlaySFX(audioManager.ComboSlash);
                 StartCoroutine(OpenHitboxWindow("WE"));         // if using a timed collider like your old WE
                 break;
@@ -234,7 +234,13 @@ public class Abilities : MonoBehaviour
                     // yield return new WaitForSeconds(cycloneDuration);
                     // FireCycloneCollider.enabled = false; FireCycloneGO.SetActive(false);
 
-                    yield return new WaitForSeconds(hitWindow); // placeholder if you keep the same pattern
+                    AbilityWE.SetActive(true);
+                    if (hitboxWE) hitboxWE.enabled = true;
+
+                    yield return new WaitForSeconds(hitWindow);
+
+                    if (hitboxWE) hitboxWE.enabled = false;
+                    AbilityWE.SetActive(false);
 
                     if (movement) { movement.enabled = true; movement.IsInputLocked = false; }
                     break;

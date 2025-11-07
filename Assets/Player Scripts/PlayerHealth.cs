@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class PlayerHealth : MonoBehaviour
@@ -14,12 +16,21 @@ public class PlayerHealth : MonoBehaviour
     // The SpriteRenderer that should flash.
     private SpriteRenderer spriteRenderer;
 
+    
+
     // The material that was in use, when the script started.
     private Material originalMaterial;
 
     // The currently running coroutine.
     private Coroutine flashRoutine;
 
+    [Tooltip("HP sprtie")]
+    [SerializeField] private Sprite LossHP;
+    [SerializeField] private Sprite OGSPRITE;
+    [SerializeField] private UnityEngine.UI.Image HP1;
+    [SerializeField] private UnityEngine.UI.Image HP2;
+    [SerializeField] private UnityEngine.UI.Image HP3;
+    //
 
 
     [Header("Hearts")]
@@ -52,12 +63,17 @@ public class PlayerHealth : MonoBehaviour
     public event Action OnDamaged;  // score system can listen
     public event Action OnDeath;    // TODO hookup later
 
+
+    // Add near your other fields:
+    private bool isDead = false;
+
     void Awake()
     {
         if (!rb) rb = GetComponent<Rigidbody2D>();
         if (!sprite) sprite = GetComponentInChildren<SpriteRenderer>();
         if (!animator) animator = GetComponentInChildren<Animator>();
         currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts);
+        OGSPRITE = HP1.sprite;
     }
 
     private void Start()
@@ -68,17 +84,84 @@ public class PlayerHealth : MonoBehaviour
         // so we can switch back to it after the flash ended.
         originalMaterial = spriteRenderer.material;
     }
+    private void Update()
+    {
+        if (currentHearts == 2)
+        {
+            HP1.sprite = OGSPRITE;
+            HP2.sprite = OGSPRITE;
+            HP3.sprite = LossHP;
+        }
+        else if (currentHearts == 1)
+        {
+            HP1.sprite = OGSPRITE;
+            HP2.sprite = LossHP;
+            HP3.sprite = LossHP;
+        }
+        else if (currentHearts == 0)
+        {
+            HP1.sprite = LossHP;
+            HP2.sprite = LossHP;
+            HP3.sprite = LossHP;
 
+        }
+    }
     // --- Public API (always 1 heart, same knockback) ---
     public void TakeHit(Transform source) => TakeHit((Vector2)source.position);
 
+    //public void TakeHit(Vector2 hitFromPosition)
+    //{
+    //    if (IsInvulnerable || currentHearts <= 0) return;
+
+    //    // Animator hurt
+    //    if (animator && !string.IsNullOrEmpty(hurtTrigger))
+    //        animator.SetTrigger(hurtTrigger);
+
+    //    // Knockback (away from hit origin)
+    //    if (rb)
+    //    {
+    //        Vector2 dir = ((Vector2)transform.position - hitFromPosition);
+    //        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+    //        dir.Normalize();
+
+    //        rb.linearVelocity = Vector2.zero; // crisp feel
+    //        rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
+    //    }
+
+    //    // Hearts
+    //    currentHearts = Mathf.Max(0, currentHearts - 1);
+
+    //    // Notify
+    //    OnDamaged?.Invoke();
+    //    Flash();
+    //    // I-frames + stagger + blink
+    //    StartCoroutine(HurtFlow());
+
+    //    // Death stub
+    //    if (currentHearts <= 0)
+    //    {
+    //        // ======= TODO: Player death handling (UI, anim, respawn, etc.) =======
+    //        OnDeath?.Invoke();
+    //    }
+    //}
     public void TakeHit(Vector2 hitFromPosition)
     {
-        if (IsInvulnerable || currentHearts <= 0) return;
+        if (IsInvulnerable || currentHearts <= 0 || isDead)
+        {
 
-        // Animator hurt
-        if (animator && !string.IsNullOrEmpty(hurtTrigger))
-            animator.SetTrigger(hurtTrigger);
+            HP1.sprite = LossHP;
+            HP2.sprite = LossHP;
+            HP3.sprite = LossHP;
+
+
+            return;
+
+
+        }
+
+        // Hurt anim only if we’re not going to die from this hit
+        // (we’ll trigger the real death anim in Die())
+        // We'll decide after decrement.
 
         // Knockback (away from hit origin)
         if (rb)
@@ -93,21 +176,50 @@ public class PlayerHealth : MonoBehaviour
 
         // Hearts
         currentHearts = Mathf.Max(0, currentHearts - 1);
+        
+        
+            OnDamaged?.Invoke();
 
-        // Notify
-        OnDamaged?.Invoke();
-        Flash();
-        // I-frames + stagger + blink
-        StartCoroutine(HurtFlow());
+            if (currentHearts <= 0)
+            {
+                Die();               // <<< go straight to death flow
+                return;
+            }
 
-        // Death stub
-        if (currentHearts <= 0)
-        {
-            // ======= TODO: Player death handling (UI, anim, respawn, etc.) =======
-            OnDeath?.Invoke();
-        }
+            // Only do hurt feedback if we’re still alive:
+            if (animator && !string.IsNullOrEmpty(hurtTrigger))
+                animator.SetTrigger(hurtTrigger);
+
+            Flash();
+            StartCoroutine(HurtFlow());
+        
     }
+    
 
+    private void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        // Stop any running hurt flashes/blinks and ensure visible
+        if (flashRoutine != null) { StopCoroutine(flashRoutine); flashRoutine = null; }
+        if (sprite) sprite.enabled = true;
+
+        // Disable control scripts cleanly
+        SetMovementLocked(true);
+        var abil = GetComponent<Abilities>();
+        if (abil) abil.enabled = false;
+
+        // Make sure we don’t take further hits during the sequence
+        IsInvulnerable = true;
+
+        // Trigger your actual DEATH animation
+        // (Set this trigger name to your real one in the inspector if needed)
+        if (animator) animator.SetTrigger("PlayerDeath");
+
+        // Notify the outside world (GameFlowManager will handle timing + fade)
+        OnDeath?.Invoke();
+    }
     private IEnumerator HurtFlow()
     {
         IsInvulnerable = true;

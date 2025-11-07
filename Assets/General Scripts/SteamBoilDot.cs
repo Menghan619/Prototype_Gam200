@@ -46,6 +46,7 @@ public class SteamBoilDoT : MonoBehaviour
     void Start()
     {
         DotAnime.SetTrigger("SteamDot");
+        
         Destroy(gameObject, lifeTime);
     }
 
