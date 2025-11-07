@@ -32,7 +32,7 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private float deathFadeDuration = 0.6f; // fade time (unscaled)
     [SerializeField] private AudioClip deathClip; // optional SFX
     [SerializeField] private string deathStateName = "Death"; // name OR tag of your death state
-
+    AudioManager audioManager;
 
     void Awake()
     {
@@ -41,6 +41,8 @@ public class GameFlowManager : MonoBehaviour
 
         if (!player) player = FindObjectOfType<PlayerHealth>();
         if (player) player.OnDeath += HandlePlayerDeath; // From your PlayerHealth event. :contentReference[oaicite:2]{index=2}
+
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
 
     //void Start()
@@ -124,6 +126,7 @@ public class GameFlowManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(deathFadeDelay);
 
         // 3) Optional death SFX
+        audioManager.StopMusic();
         if (sfxSource && deathClip) sfxSource.PlayOneShot(deathClip);
 
         // 4) Fade in panel

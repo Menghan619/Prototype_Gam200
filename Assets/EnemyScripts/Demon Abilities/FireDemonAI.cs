@@ -53,6 +53,10 @@ public class FireDemonAI : MonoBehaviour
 
     public Facing2D facing;  // drag in from prefab or auto-find
 
+
+    [Header("Audio")]
+    AudioManager audioManager;
+
     void Awake()
     {
         if (!rb) rb = GetComponent<Rigidbody2D>();
@@ -67,6 +71,8 @@ public class FireDemonAI : MonoBehaviour
         rb.gravityScale = 0f;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
 
     void Update()
@@ -361,6 +367,7 @@ public class FireDemonAI : MonoBehaviour
 
         // Trigger charge animation
         if (animator) animator.SetTrigger("FireCharge");
+        audioManager.PlaySFX(audioManager.FireDemonCharge);
         // TODO: play charge VFX/SFX here (anim trigger if you have one)
         yield return new WaitForSeconds(windup);
 

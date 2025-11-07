@@ -154,18 +154,21 @@ public class Enemy : MonoBehaviour
             // - Knockback (use packet.knockbackDir/Force)
             // - Optional flash (COMMENT OUT if you want no flash globally for now)
             // - Hitstop
+            audioManager.PlaySFX(audioManager.HitSFX);
             if (defenseElement == Element.Water)
             {
+                audioManager.PlaySFX(audioManager.WaterDemonDamage);
                 EnemyAnimator.SetTrigger("WaterHit");
             }
             else if (defenseElement == Element.Fire)
             {
+                audioManager.PlaySFX(audioManager.EnemyScreamSFX);
                 EnemyAnimator.SetTrigger("FireHit");
             }
             ApplyKnockback(packet.knockbackDir, packet.knockbackForce);
             Flash();
-            audioManager.PlaySFX(audioManager.HitSFX);
-            audioManager.PlaySFX(audioManager.EnemyScreamSFX);
+            
+           
             
             // HITFLASH: comment if you want to disable globally for now
             // StartCoroutine(DoFlash());  // <-- your existing flash routine

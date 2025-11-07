@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class AudioManager : MonoBehaviour
     [Header("AUDIO Source")]
     [SerializeField] AudioSource SFX;
     [SerializeField] AudioSource FootstepsSFXManager;
+    [SerializeField] AudioSource Music;
 
     [Header("AUDIO CLIP")]
     public AudioClip WindSlash;
@@ -15,8 +17,37 @@ public class AudioManager : MonoBehaviour
     public AudioClip HitSFX;
     public AudioClip EnemyScreamSFX;
     public AudioClip[] FootstepsSFX;
+    public AudioClip CombatMusic;
+    public AudioClip Menumusic;
+    public AudioClip FireDemonCharge;
+    public AudioClip WaterDemonDamage;
+    public AudioClip WaterDemonChargeAttack;
+    public AudioClip NeutralSlash;
+    public AudioClip PlayerDamage;
+    public AudioClip PlayerDeath;
+    private void Start()
+    {
+        
+        Scene AC = SceneManager.GetActiveScene();
+        if (AC != null) { 
+        
+           if( AC.name == "Main Menu")
+            {
+                Music.clip = Menumusic;
+                Music.Play();
+            }
+            else {
 
+                Music.clip = CombatMusic;
+                Music.Play();
+            }
+        }
+    }
 
+    public void StopMusic()
+    {
+        Music.clip = null;
+    }
     public void PlaySFX(AudioClip Clip)
     {
         SFX.PlayOneShot(Clip);

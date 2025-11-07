@@ -35,6 +35,9 @@ public class WaterDemonDeathExplode : MonoBehaviour
     [Header("Cleanup")]
     [SerializeField] private bool destroyAfterDeath = true;
 
+    [Header("Audio")]
+    AudioManager audioManager;
+
     // cache of sprites to fade
     private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
 
@@ -52,6 +55,8 @@ public class WaterDemonDeathExplode : MonoBehaviour
         }
         // cache all sprites (root + children)
         GetComponentsInChildren(true, sprites);
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
+
     }
 
     void OnEnable()
@@ -93,6 +98,7 @@ public class WaterDemonDeathExplode : MonoBehaviour
     IEnumerator CoExplodeAfterCharge()
     {
         // Use realtime so any hitstop elsewhere doesn't stall death sequence
+        audioManager.PlaySFX(audioManager.WaterDemonChargeAttack);
         float t = 0f;
         while (t < chargeTime)
         {

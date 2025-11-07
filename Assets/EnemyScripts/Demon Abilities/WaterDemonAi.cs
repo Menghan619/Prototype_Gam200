@@ -40,6 +40,8 @@ public class WaterDemonAI : MonoBehaviour
     private float nextHoverJitterTime;
     private Vector2 hoverDir = Vector2.zero;
 
+    [Header("Audio")]
+    AudioManager audioManager;
     void Awake()
     {
         if (!rb) rb = GetComponent<Rigidbody2D>();
@@ -54,6 +56,9 @@ public class WaterDemonAI : MonoBehaviour
         rb.gravityScale = 0f;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
 
     void Update()
@@ -177,13 +182,14 @@ public class WaterDemonAI : MonoBehaviour
 
         Vector2 faceDir = player ? ((Vector2)player.position - (Vector2)transform.position).normalized : Vector2.right;
         facing?.BeginAttackFacing(faceDir, windup + recover + 0.05f);
-
+        audioManager.PlaySFX(audioManager.WaterDemonChargeAttack);
         if (animator && !string.IsNullOrEmpty(chargeTrigger)) animator.SetTrigger(chargeTrigger);
         yield return new WaitForSeconds(windup);
 
         // PULSE (one-shot)
         brain = Brain.Pulse;
         if (animator && !string.IsNullOrEmpty(pulseTrigger)) animator.SetTrigger(pulseTrigger);
+        
 
         var ph = player ? player.GetComponent<PlayerHealth>() : null;
         if (ph && Vector2.Distance(player.position, transform.position) <= aoeRadius)

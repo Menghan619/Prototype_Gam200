@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -8,13 +9,13 @@ public class Health : MonoBehaviour
     public Element defenseElement = Element.Neutral;
 
     public event System.Action OnDeath;
-    public bool IsDead { get; private set; }
+    public bool IsDead { get; private set; }//
 
     public float CurrentHP { get; private set; }
 
     public Element LastHitElement { get; private set; } = Element.Neutral;
 
-
+    public GameObject FloatingHitNumber;
 
     private void Awake() => CurrentHP = maxHP;
 
@@ -33,8 +34,11 @@ public class Health : MonoBehaviour
         }
 
         finalDamage = packet.baseDamage * mult;
+
         if (finalDamage <= 0f) return false;
         Debug.Log("Final damage is:" +finalDamage);
+        GameObject DamageNum = Instantiate(FloatingHitNumber, transform.position, Quaternion.identity) as GameObject; 
+        DamageNum.transform.GetChild(0).GetComponent<TextMeshPro>().text = finalDamage.ToString();
         CurrentHP -= finalDamage;
         if (CurrentHP <= 0f)
         {

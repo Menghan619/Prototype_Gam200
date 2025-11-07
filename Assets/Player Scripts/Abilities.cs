@@ -127,12 +127,13 @@ public class Abilities : MonoBehaviour
                 SlashAnimes.SetTrigger("SteamBurst");
                 SteamBurstCone.SetTrigger("SteamCone"); // placeholder
                 audioManager.PlaySFX(audioManager.ComboSlash);
+                audioManager.PlaySFX (audioManager.WaterSlash);
                 StartCoroutine(OpenHitboxWindow("QE"));
                 StartCoroutine(DoSteamBurst());                 // new coroutine below
                 break;
             case "LMB": // ☁️♨️ Steam Burst (WE/EW) — spawn floor that applies slow+dot
                 CharSlashAnimes.SetTrigger("WaterAttack");       // placeholder
-                audioManager.PlaySFX(audioManager.ComboSlash);
+                audioManager.PlaySFX(audioManager.NeutralSlash);
                 StartCoroutine(OpenHitboxWindow("LMB"));
                             
                 break;

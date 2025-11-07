@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     // The SpriteRenderer that should flash.
     private SpriteRenderer spriteRenderer;
 
-    
+    AudioManager audioManager;
 
     // The material that was in use, when the script started.
     private Material originalMaterial;
@@ -30,6 +30,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image HP1;
     [SerializeField] private UnityEngine.UI.Image HP2;
     [SerializeField] private UnityEngine.UI.Image HP3;
+    [SerializeField] private GameObject HP1s;
+    [SerializeField] private GameObject HP2s;
+    [SerializeField] private GameObject HP3s;
+    [SerializeField] private GameObject ManaBar;
     //
 
 
@@ -74,6 +78,7 @@ public class PlayerHealth : MonoBehaviour
         if (!animator) animator = GetComponentInChildren<Animator>();
         currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts);
         OGSPRITE = HP1.sprite;
+        audioManager = GameObject.FindGameObjectWithTag("AudioMan").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -152,6 +157,7 @@ public class PlayerHealth : MonoBehaviour
             HP1.sprite = LossHP;
             HP2.sprite = LossHP;
             HP3.sprite = LossHP;
+            
 
 
             return;
@@ -187,11 +193,16 @@ public class PlayerHealth : MonoBehaviour
             }
 
             // Only do hurt feedback if we’re still alive:
-            if (animator && !string.IsNullOrEmpty(hurtTrigger))
+            
+        if (animator && !string.IsNullOrEmpty(hurtTrigger))
                 animator.SetTrigger(hurtTrigger);
+        
 
-            Flash();
-            StartCoroutine(HurtFlow());
+            
+        Flash();
+        audioManager.PlaySFX(audioManager.PlayerDamage);
+
+        StartCoroutine(HurtFlow());
         
     }
     
@@ -215,11 +226,21 @@ public class PlayerHealth : MonoBehaviour
 
         // Trigger your actual DEATH animation
         // (Set this trigger name to your real one in the inspector if needed)
+
         if (animator) animator.SetTrigger("PlayerDeath");
+        audioManager.PlaySFX(audioManager.PlayerDeath);
+        HP1.enabled = false;
+        HP2.enabled = false;
+        HP3.enabled = false;
+        HP1s.SetActive(false);
+        HP2s.SetActive(false);
+        HP3s.SetActive(false);
+        ManaBar.SetActive(false);
 
         // Notify the outside world (GameFlowManager will handle timing + fade)
         OnDeath?.Invoke();
     }
+
     private IEnumerator HurtFlow()
     {
         IsInvulnerable = true;
